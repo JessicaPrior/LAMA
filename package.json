@@ -1,5 +1,5 @@
 {
-  "name": "lama-template",
+  "name": "lama",
   "version": "1.0.0",
   "description": "Template para o projeto LAMA",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "api",
     "labook"
   ],
-  "author": "João Alves",
+  "author": "Jessica",
   "license": "ISC",
   "dependencies": {
     "@types/bcryptjs": "^2.4.2",

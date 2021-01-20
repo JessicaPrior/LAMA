@@ -26,8 +26,6 @@ export class BandController {
         } catch (error) {
             res.status(400).send({ error: error.message });
         }
-
-        await BaseDatabase.destroyConnection();
     }
 
     public async bandDetails(req: Request, res: Response){
