@@ -4,11 +4,11 @@ import { userRouter } from "./routes/userRouter";
 import { bandRouter } from "./routes/bandRouter";
 import { showRouter } from "./routes/showRouter";
 
-const app = express();
+const app = express()
 
-app.use(express.json());
+app.use(express.json())
 
-app.use("/user", userRouter);
+app.use("/user", userRouter)
 app.use("/band", bandRouter)
 app.use("/show", showRouter)
 

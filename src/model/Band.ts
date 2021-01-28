@@ -41,6 +41,10 @@ export class Band{
 
 export interface BandInputDTO{
     name: string,
-    genre: string,
-    responsible: string
+    music_genre: string
+}
+
+export interface bandDetails{
+    id: string,
+    name?: string
 }

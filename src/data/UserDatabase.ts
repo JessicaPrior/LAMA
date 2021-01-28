@@ -3,8 +3,6 @@ import BaseDataBase from "./BaseDatabase";
 
 export class UserDatabase extends BaseDataBase {
 
-  private static TABLE_NAME = "Tabela_Usuarios";
-
   public async createUser(
     id: string,
     email: string,
@@ -21,7 +19,7 @@ export class UserDatabase extends BaseDataBase {
           password,
           role
         })
-        .into(UserDatabase.TABLE_NAME);
+        .into(this.tableNames.users);
     } catch (error) {
       throw new Error(error.sqlMessage || error.message);
     }
@@ -31,7 +29,7 @@ export class UserDatabase extends BaseDataBase {
     try {
       const result = await BaseDataBase.connection
         .select("*")
-        .from(UserDatabase.TABLE_NAME)
+        .from(this.tableNames.users)
         .where({ email });
 
 

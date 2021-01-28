@@ -6,6 +6,12 @@ dotenv.config();
 
 export default class BaseDataBase {
 
+   protected tableNames = {
+      users: "Tabela_Usuarios",
+      bands: "Tabela_Bandas",
+      shows: "Tabela_Shows"
+   }
+
     protected static connection: Knex = knex({
        client: "mysql",
        connection: {

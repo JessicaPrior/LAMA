@@ -34,6 +34,7 @@ export class UserBusiness {
             const accessToken = authenticator.generateToken({ id, role: user.role });
 
             return accessToken;
+            
         } catch (error) {
             if (error.message.includes("for key 'email'")) {
                 throw new BaseError("Email already in use", 409)

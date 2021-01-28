@@ -1,6 +1,6 @@
 import { BandInputDTO } from "../model/Band";
 import { IdGenerator } from "../services/IdGenerator";
-import { AuthenticationData, Authenticator } from "../services/Authenticator";
+import { Authenticator } from "../services/Authenticator";
 import { BaseError } from "../error/BaseError";
 import { BandDatabase } from "../data/BandDatabase";
 
@@ -12,19 +12,19 @@ export class BandBusiness {
 
             const verifyToken = authenticator.getData(user.token)
 
-            if (!band.name || !band.genre || !band.responsible) {
-                throw new BaseError("Missing input", 422);
-            }
-
             if (verifyToken.role === 'NORMAL') {
                 throw new BaseError("Not authorized", 401);
+            }
+
+            if (!band.name || !band.music_genre) {
+                throw new BaseError("Missing band input", 422);
             }
 
             const idGenerator = new IdGenerator();
             const id = idGenerator.generate();
 
             const bandDatabase = new BandDatabase();
-            await bandDatabase.createBand(id, band.name, band.genre, band.responsible);
+            await bandDatabase.createBand(id, band.name, band.music_genre, verifyToken.id);
 
             const accessToken = authenticator.generateToken({ id, role: verifyToken.role });
 
@@ -38,9 +38,9 @@ export class BandBusiness {
 
     public async bandDetails(input: any) {
         try {
-            
+
             const bandDatabase = new BandDatabase();
-            const band = await bandDatabase.getBandDetails(input);
+            const band = await bandDatabase.getBandDetails(input.id);
 
             if (!input.id) {
                 throw new BaseError("invalid-id", 401)
@@ -51,10 +51,7 @@ export class BandBusiness {
             }
 
             return {
-                id: band.getId(),
-                name: band.getName(),
-                genre: band.getGenre(),
-                responsible: band.getResponsible()
+                band
             }
         } catch (error) {
             throw new BaseError(error.statusCode, error.message)

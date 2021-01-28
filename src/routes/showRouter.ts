@@ -1,10 +1,10 @@
 import express from "express";
-// import { ShowController } from "../controller/ShowController";
+import { ShowController } from "../controller/ShowController";
 
 
 export const showRouter = express.Router();
 
-// const showController = new ShowController();
+const showController = new ShowController();
 
-// showRouter.post("/create", showController.create);
-// showRouter.get("/shows", showController.shows);
+showRouter.post("/create", showController.createShow);
+showRouter.get("/shows-list", showController.getShowsByDay);
