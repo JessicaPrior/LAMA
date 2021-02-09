@@ -25,24 +25,6 @@ export class ShowDataBase extends BaseDataBase {
         }
     }
 
-    public async getShowsByTimes(startTime: number, endTime: number, weekDay: SHOW_DAYS): Promise<ShowOutputDTO[]> {
-        const shows = await BaseDataBase.connection
-            .select("*")
-            .where("week_day", "=", `${weekDay}`)
-            .andWhere("end_time", ">", `${startTime}`)
-            .andWhere("start_time", "<", `${endTime}`)
-            .from(this.tableNames.shows)
-        return shows.map((show: any) => {
-            return {
-                id: show.id,
-                bandId: show.bandId,
-                startTime: show.startTime,
-                endTime: show.endTime,
-                weekDay: show.weekDay
-            }
-        })
-    }
-
     public async getShowsByDay(weekDay: SHOW_DAYS): Promise<ShowOutputDTO[]> {
         const shows = await BaseDataBase.connection.raw(`
             SELECT 
